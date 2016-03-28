@@ -39,5 +39,9 @@ public class KeyboardInput : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
 			_broRCtrl.SetRotation(Directions.RIGHT);
 		}
+
+		if (_broLCtrl.isRotatedCorrectly () && _broRCtrl.isRotatedCorrectly ()) {
+			Debug.Log ("We got a winner");
+		}
 	}
 }

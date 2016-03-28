@@ -11,7 +11,13 @@ public class BroController : MonoBehaviour {
 	private Vector3 targetDirection;
 	private Quaternion targetEnd;
 
+	private Vector3 correctRotation;
+	private bool rotatedCorrectly = false;
+
 	void Awake () {
+		// Store correct position
+		correctRotation = transform.rotation.eulerAngles;
+
 		// Start in a random position
 		float RandomX = Random.Range (-1, 2) * 90;
 		float RandomZ = Random.Range (-1, 2) * 90;
@@ -34,6 +40,15 @@ public class BroController : MonoBehaviour {
 				transform.rotation = targetEnd;
 				totalRotation = 0;
 				isRotating = false;
+
+				//Debug.Log (transform.rotation.eulerAngles + " " + correctRotation);
+
+				if (V3Equal(transform.rotation.eulerAngles, correctRotation)) {
+					Debug.Log ("!!");
+					rotatedCorrectly = true;
+				} else {
+					rotatedCorrectly = false;
+				}
 			}
 		}
 	}
@@ -62,5 +77,13 @@ public class BroController : MonoBehaviour {
 
 			this.isRotating = true;
 		}		
+	}
+
+	public bool isRotatedCorrectly() {
+		return rotatedCorrectly;
+	}
+
+	public bool V3Equal(Vector3 a, Vector3 b){
+		return Vector3.SqrMagnitude(a - b) < 0.0001;
 	}
 }

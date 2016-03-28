@@ -14,16 +14,25 @@ public class KeyboardInput : MonoBehaviour {
 	}
 
 	void Update () {
+		if (Input.GetKeyDown (KeyCode.W)) {
+			Debug.Log ("Keydown W");
+			_broLCtrl.SetRotation(Directions.UP);
+		}
+
+		if (Input.GetKeyDown (KeyCode.S)) {
+			Debug.Log ("Keydown S");
+			_broLCtrl.SetRotation(Directions.DOWN);
+		}
+		if (Input.GetKeyDown (KeyCode.A)) {
+			Debug.Log ("Keydown A");
+			_broLCtrl.SetRotation(Directions.LEFT);
+		}
+
 		if (Input.GetKeyDown (KeyCode.D)) {
 			Debug.Log ("Keydown D");
-			_broLCtrl.RotateX ();
+			_broLCtrl.SetRotation(Directions.RIGHT);
 		}
-
-		if (Input.GetKeyDown (KeyCode.F)) {
-			Debug.Log ("Keydown F");
-			_broLCtrl.RotateY ();
-		}
-
+		/*
 		if (Input.GetKeyDown (KeyCode.N)) {
 			Debug.Log ("Keydown N");
 			_broRCtrl.RotateY ();
@@ -32,6 +41,6 @@ public class KeyboardInput : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.M)) {
 			Debug.Log ("Keydown M");
 			_broRCtrl.RotateX ();
-		}
+		}*/
 	}
 }

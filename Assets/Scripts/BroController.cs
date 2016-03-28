@@ -4,48 +4,50 @@ using System.Collections;
 public class BroController : MonoBehaviour {
 	
 	private float totalRotation = 0;
-	private float rotationSpeed = 15.0f;
-	private float rotationDegreesAmount = 90f;
+	private float rotationSpeed = 4.0f;
+	private float rotationDegreesAmount = 90.0f;
 	private bool isRotating = false;
 	private Quaternion targetRotation;
-
-	private float currentAngle;
+	private Vector3 targetDirection;
+	private Quaternion targetEnd;
 
 	void Update () {
-		if (isRotating) {
-			float speed = rotationSpeed * Time.deltaTime;
-			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, speed);
+		if (this.isRotating) {
+			float speed = rotationSpeed * rotationDegreesAmount * Time.deltaTime;
+
+			Quaternion targetRotation = Quaternion.AngleAxis (speed, targetDirection);
+			transform.rotation = targetRotation * transform.rotation;
 			totalRotation += speed;
 
-			Debug.Log (transform.rotation.eulerAngles + " " + targetRotation.eulerAngles + " " + totalRotation);
-
-			if (Mathf.Abs (totalRotation) >= rotationSpeed) {
-				Debug.Log("DONE!!!");
-				transform.rotation = targetRotation;
+			if (Mathf.Abs (totalRotation) >= Mathf.Abs (rotationDegreesAmount)) {
+				Debug.Log (targetEnd + " " + transform.rotation.eulerAngles);
+				transform.rotation = targetEnd;
 				totalRotation = 0;
 				isRotating = false;
 			}
 		}
 	}
-		
-	public void RotateX() {
-		if (!isRotating) {
+
+	public void SetRotation(Directions direction) {
+		if (!this.isRotating) {
+			if (direction == Directions.LEFT) {
+				targetDirection = Vector3.up;
+			}
+			if (direction == Directions.RIGHT) {
+				targetDirection = Vector3.down;
+			}
+			if (direction == Directions.UP) {
+				targetDirection = Vector3.right;
+			}
+			if (direction == Directions.DOWN) {
+				targetDirection = Vector3.left;
+			}
+
+			// Store end position
+			Quaternion tmp = Quaternion.AngleAxis (rotationDegreesAmount, targetDirection);
+			targetEnd = tmp * transform.rotation;
+
 			this.isRotating = true;
-			this.targetRotation = Quaternion.Euler (this.transform.rotation.eulerAngles.x - rotationDegreesAmount, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z);
-		}
-
-		Debug.Log (transform.rotation.eulerAngles + " " + targetRotation.eulerAngles);
-		//this.transform.Rotate(new Vector3 (-90, 0, 0));
-
+		}		
 	}
-
-	public void RotateY() {
-		if (!isRotating) {
-			this.isRotating = true;	
-			this.targetRotation = Quaternion.Euler (this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z - rotationDegreesAmount);
-		}
-		Debug.Log (transform.rotation.eulerAngles + " " + targetRotation.eulerAngles);
-		//this.transform.Rotate(new Vector3 (0, 0, -90));
-	}
-
 }

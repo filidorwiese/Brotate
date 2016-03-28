@@ -43,6 +43,8 @@ public class BroController : MonoBehaviour {
 				targetDirection = Vector3.left;
 			}
 
+			//targetDirection = Vector3.right + Vector3.down;
+
 			// Store end position
 			Quaternion tmp = Quaternion.AngleAxis (rotationDegreesAmount, targetDirection);
 			targetEnd = tmp * transform.rotation;

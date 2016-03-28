@@ -2,25 +2,35 @@
 using System.Collections;
 
 public class BroController : MonoBehaviour {
-	
-	private float totalRotation = 0;
-	private float rotationSpeed = 4.0f;
-	private float rotationDegreesAmount = 90.0f;
+
 	private bool isRotating = false;
+	private float totalRotation = 0;
+	private float rotationSpeed = 8.0f;
+	private float rotationDegreesAmount = 90.0f;
 	private Quaternion targetRotation;
 	private Vector3 targetDirection;
 	private Quaternion targetEnd;
+
+	void Awake () {
+		// Start in a random position
+		float RandomX = Random.Range (-1, 2) * 90;
+		float RandomZ = Random.Range (-1, 2) * 90;
+		transform.Rotate(RandomX, 0, RandomZ);
+	}
 
 	void Update () {
 		if (this.isRotating) {
 			float speed = rotationSpeed * rotationDegreesAmount * Time.deltaTime;
 
+			// Rotate towards direction
 			Quaternion targetRotation = Quaternion.AngleAxis (speed, targetDirection);
 			transform.rotation = targetRotation * transform.rotation;
+
+			// Count amount of rotation
 			totalRotation += speed;
 
+			// If totalRotation equals the amount to rotate, end rotation
 			if (Mathf.Abs (totalRotation) >= Mathf.Abs (rotationDegreesAmount)) {
-				Debug.Log (targetEnd + " " + transform.rotation.eulerAngles);
 				transform.rotation = targetEnd;
 				totalRotation = 0;
 				isRotating = false;
@@ -30,17 +40,20 @@ public class BroController : MonoBehaviour {
 
 	public void SetRotation(Directions direction) {
 		if (!this.isRotating) {
-			if (direction == Directions.LEFT) {
-				targetDirection = Vector3.up;
-			}
-			if (direction == Directions.RIGHT) {
-				targetDirection = Vector3.down;
-			}
-			if (direction == Directions.UP) {
-				targetDirection = Vector3.right;
-			}
-			if (direction == Directions.DOWN) {
-				targetDirection = Vector3.left;
+			// Determine target direction
+			switch (direction) {
+				case Directions.LEFT:
+					targetDirection = Vector3.up;
+					break;
+				case Directions.RIGHT:
+					targetDirection = Vector3.down;
+					break;
+				case Directions.UP:
+					targetDirection = Vector3.right;
+					break;
+				case Directions.DOWN:
+					targetDirection = Vector3.left;
+					break;
 			}
 
 			// Store end position

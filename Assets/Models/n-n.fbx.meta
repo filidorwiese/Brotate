@@ -13,7 +13,7 @@ ModelImporter:
     3300000: Cube
     4300000: Cube
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

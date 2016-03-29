@@ -21,7 +21,7 @@ public class BroController : MonoBehaviour {
 		// Start in a random position
 		float RandomX = Random.Range (-1, 2) * 90;
 		float RandomZ = Random.Range (-1, 2) * 90;
-		transform.Rotate(RandomX, 0, RandomZ);
+		transform.Rotate(0, RandomX, RandomZ);
 	}
 
 	void Update () {
@@ -64,10 +64,10 @@ public class BroController : MonoBehaviour {
 					targetDirection = Vector3.down;
 					break;
 				case Directions.UP:
-					targetDirection = Vector3.right;
+					targetDirection = Vector3.back;
 					break;
 				case Directions.DOWN:
-					targetDirection = Vector3.left;
+					targetDirection = Vector3.forward;
 					break;
 			}
 

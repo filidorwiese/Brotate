@@ -21,7 +21,7 @@ public class BroController : MonoBehaviour {
 		// Start in a random position
 		float RandomX = Random.Range (-1, 2) * 90;
 		float RandomZ = Random.Range (-1, 2) * 90;
-		transform.Rotate(0, RandomX, RandomZ);
+		transform.Rotate(RandomX, RandomZ, 0);
 	}
 
 	void Update () {
@@ -41,7 +41,7 @@ public class BroController : MonoBehaviour {
 				totalRotation = 0;
 				isRotating = false;
 
-				Debug.Log (transform.rotation.eulerAngles + " " + correctRotation);
+				//Debug.Log (transform.rotation.eulerAngles + " " + correctRotation);
 
 				if (V3Equal(transform.rotation.eulerAngles, correctRotation)) {
 					rotatedCorrectly = true;
@@ -63,10 +63,10 @@ public class BroController : MonoBehaviour {
 					targetDirection = Vector3.down;
 					break;
 				case Directions.UP:
-					targetDirection = Vector3.back;
+					targetDirection = Vector3.right;
 					break;
 				case Directions.DOWN:
-					targetDirection = Vector3.forward;
+					targetDirection = Vector3.left;
 					break;
 			}
 

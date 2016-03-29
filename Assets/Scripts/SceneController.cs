@@ -41,7 +41,7 @@ public class SceneController : MonoBehaviour {
 		float onePercent = (Screen.width / 100);
 		float percentage = (elapsedTime / waitSeconds) * 100;
 
-		if (percentage <= 100) {
+		if (percentage <= 110) {
 			progression.rectTransform.sizeDelta = new Vector2 (onePercent * percentage, 10);
 		} else {
 			setLost ();

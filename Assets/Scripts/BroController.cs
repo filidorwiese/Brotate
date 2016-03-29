@@ -44,7 +44,6 @@ public class BroController : MonoBehaviour {
 				Debug.Log (transform.rotation.eulerAngles + " " + correctRotation);
 
 				if (V3Equal(transform.rotation.eulerAngles, correctRotation)) {
-					Debug.Log ("!!");
 					rotatedCorrectly = true;
 				} else {
 					rotatedCorrectly = false;

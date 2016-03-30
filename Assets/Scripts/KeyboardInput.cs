@@ -5,7 +5,6 @@ using System.Collections;
 public class KeyboardInput : MonoBehaviour {
 	[SerializeField] private Transform BroL;
 	[SerializeField] private Transform BroR;
-	private GameObject WinnerText;
 
 	private BroController _broLCtrl;
 	private BroController _broRCtrl;
@@ -13,9 +12,6 @@ public class KeyboardInput : MonoBehaviour {
 	void Start() {
 		_broLCtrl = BroL.GetComponent<BroController> ();
 		_broRCtrl = BroR.GetComponent<BroController> ();
-
-		WinnerText = GameObject.Find ("Winner");
-		WinnerText.gameObject.SetActive(false);
 	}
 
 	void Update () {
@@ -43,11 +39,6 @@ public class KeyboardInput : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
 			_broRCtrl.SetRotation(Directions.RIGHT);
-		}
-
-		if (_broLCtrl.isRotatedCorrectly () && _broRCtrl.isRotatedCorrectly ()) {
-			WinnerText.gameObject.SetActive(true);
-			Debug.Log ("We got a winner");
 		}
 	}
 }
